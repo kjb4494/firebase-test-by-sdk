@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>회원가입 하기</h2>
+    <form action="/sign_up_submit/" method="post">
+        {% csrf_token %}
+        Email :
+        <input type="email" name="email"><br>
+        Password:
+        <input type="password" name="pass">
+        <p>
+        <input type="submit" value="완료">
+        <button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
+    </form>
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+{% endblock content %}}

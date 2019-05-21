@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if request.session.uid %}
+        <h2>로그인 했습니다!</h2>
+        <button type="button" onclick="location.href='{% url 'api_test' %}'">API 테스트하기</button>
+        <button type="button" onclick="location.href='{% url 'create_claim' %}'">API 권한 생성하기</button>
+        <button type="button" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+    {% else %}
+        <h2>로그인 해주세요 :)</h2>
+        <form action="/sign_in/" method="post">
+            {% csrf_token %}
+            Email :
+            <input type="email" name="email"><br>
+            Password:
+            <input type="password" name="pass">
+            <p>
+            <input type="submit" value="로그인">
+            <button type="button" onclick="location.href='{% url 'sign_up' %}'">회원가입</button>
+        </form>
+    {% endif %}
+    {% if message %}
+        <hr>
+        <p>{{message}}</p>
+    {% endif %}
+{% endblock content %}}
