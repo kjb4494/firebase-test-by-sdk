@@ -25,5 +25,6 @@ urlpatterns = [
     path('sign_in/', views.sign_in, name='sign_in'),
     path('logout/', views.logout, name='logout'),
     path('api_test/', views.api_test, name='api_test'),
-    path('create_claim/', views.create_claim, name='create_claim')
+    path('create_claim/', views.create_claim, name='create_claim'),
+    path('delete_claim/', views.delete_claim, name='delete_claim')
 ]

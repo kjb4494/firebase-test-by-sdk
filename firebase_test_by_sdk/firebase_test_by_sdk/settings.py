@@ -126,3 +126,7 @@ STATIC_URL = '/static/'
 
 API_URL = 'http://localhost:8010/api/v1/'
 API_APP_NAME = 'smbot'
+
+# 세션 타임아웃 설정
+SESSION_COOKIE_AGE = 1200
+SESSION_SAVE_EVERY_REQUEST = True

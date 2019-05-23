@@ -55,20 +55,7 @@ def sign_in(request):
 def api_test(request):
     id_token = request.session.get('uid')
     if id_token is None:
-        message = '해당 서비스는 로그인이 필요합니다!'
-        return render(request, 'index.html', {'message': message})
-
-    app_name = settings.API_APP_NAME
-    user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
-    claims_of_user = user.custom_claims
-
-    if claims_of_user is None:
-        message = 'API 서비스를 이용할 권한이 없습니다.'
-        return render(request, 'index.html', {'message': message})
-
-    if claims_of_user.get(app_name) is None:
-        message = 'API 서비스를 이용할 권한이 없습니다'
-        return render(request, 'index.html', {'message': message})
+        id_token = ''
 
     try:
         res = requests.get(
@@ -81,7 +68,7 @@ def api_test(request):
     except Exception as e:
         print('Error: {}'.format(e))
         message = 'API 서버에 알 수 없는 오류가 발생했습니다. 다시 시도해주세요... ;('
-    return render(request, 'index.html', {'message': message})
+    return render(request, 'index.html', {'message': message, 'token_info': id_token})
 
 
 def create_claim(request):
@@ -109,4 +96,30 @@ def create_claim(request):
     fb_admin_auth.set_custom_user_claims(uid, claim)
     message = 'API 서비스 이용 권한을 생성했습니다. 다시 로그인 해주세요.'
     auth.logout(request)
+    return render(request, 'index.html', {'message': message})
+
+
+def delete_claim(request):
+    id_token = request.session.get('uid')
+    if id_token is None:
+        message = '해당 서비스는 로그인이 필요합니다!'
+        return render(request, 'index.html', {'message': message})
+
+    user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
+    app_name = settings.API_APP_NAME
+
+    try:
+        claims_of_user = user.custom_claims
+        if claims_of_user.get(app_name):
+            uid = user.uid
+            claim = {
+                'smbot': False
+            }
+            fb_admin_auth.set_custom_user_claims(uid, claim)
+            message = 'API 서비스 이용 권한을 제거했습니다. 다시 로그인 해주세요.'
+            auth.logout(request)
+            return render(request, 'index.html', {'message': message})
+    except:
+        pass
+    message = '존재하지않는 권한입니다.'
     return render(request, 'index.html', {'message': message})

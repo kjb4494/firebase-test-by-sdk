@@ -2,24 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1175c731-ccad-4993-bff0-1cb3ad1f417e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase_auth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firebase_test_by_sdk/templates/sign_up.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase_test_by_sdk/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/firebase_test_by_sdk/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+            <state relative-caret-position="552">
+              <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -42,10 +31,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="762">
+              <caret line="129" column="12" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
+              <folding>
+                <element signature="e#321#330#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase_auth.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-169">
+              <caret line="60" column="8" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="420">
+              <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="64" />
               <folding>
                 <element signature="e#679#707#0" expanded="true" />
               </folding>
@@ -56,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="450">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -88,13 +101,14 @@
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/templates/sign_up.html" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase.py" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase_auth.py" />
-        <option value="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/templates/smbot_claim.html" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/templates/claim.html" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/claim_generator.py" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py" />
-        <option value="$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html" />
         <option value="$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py" />
+        <option value="$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html" />
+        <option value="$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py" />
       </list>
     </option>
   </component>
@@ -211,18 +225,28 @@
       <workItem from="1558333019672" duration="6768000" />
       <workItem from="1558342730008" duration="622000" />
       <workItem from="1558343526226" duration="2893000" />
-      <workItem from="1558400786914" duration="1263000" />
+      <workItem from="1558400786914" duration="7533000" />
+      <workItem from="1558487157446" duration="2971000" />
+      <workItem from="1558573303206" duration="4869000" />
     </task>
+    <task id="LOCAL-00001" summary="First Commit&#10;&#10;API 권한 부여 테스트 완료">
+      <created>1558402402052</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1558402402052</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14919000" />
+    <option name="totallyTimeSpent" value="29029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="459" y="23" width="1461" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30091614" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3093728" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -248,16 +272,13 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First Commit&#10;&#10;API 권한 부여 테스트 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Commit&#10;&#10;API 권한 부여 테스트 완료" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/admin.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="15" lean-forward="true" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/manage.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -273,30 +294,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase-adminsdk.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/templates/sign_up.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
-          <folding>
-            <element signature="e#321#330#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase_auth.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
         </state>
       </provider>
     </entry>
@@ -309,27 +310,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/templates/claim.html" />
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/claim_generator.py" />
+    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase-adminsdk.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="75">
+            <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/lib/pyrebase_auth.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-169">
+          <caret line="60" column="8" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="420">
+          <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="64" />
           <folding>
             <element signature="e#679#707#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/firebase_test_by_sdk/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="762">
+          <caret line="129" column="12" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
+          <folding>
+            <element signature="e#321#330#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/firebase_test_by_sdk/smauth/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+        <state relative-caret-position="552">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
