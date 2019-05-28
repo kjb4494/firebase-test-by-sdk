@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{% if users %}
+    <table border="1", cellpadding="10">
+        <thead>
+        <tr bgcolor="#f5f5dc">
+            <td><b>UID</b></td>
+            <td><b>유저명</b></td>
+            <td><b>이메일</b></td>
+            <td><b>폰번호</b></td>
+            <td><b>프로필 URL</b></td>
+            <td><b>공급자 ID</b></td>
+            <td><b>비활성화</b></td>
+            <td><b>마지막 로그인</b></td>
+            <td><b>마지막 토큰발급일</b></td>
+            <td><b>계정생성일</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{user.uid}}</td>
+            <td>{{user.display_name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone_number}}</td>
+            <td>{{user.photo_url}}</td>
+            <td>{{user.provider_id}}</td>
+            <td>{{user.disabled}}</td>
+            <td>{{user.last_sign_in_timestamp}}</td>
+            <td>{{user.tokens_valid_after_timestamp}}</td>
+            <td>{{user.creation_timestamp}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
+{% endif %}
+{% endblock content %}

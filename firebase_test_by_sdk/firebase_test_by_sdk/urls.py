@@ -26,5 +26,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('api_test/', views.api_test, name='api_test'),
     path('create_claim/', views.create_claim, name='create_claim'),
-    path('delete_claim/', views.delete_claim, name='delete_claim')
+    path('delete_claim/', views.delete_claim, name='delete_claim'),
+    path('dashboard/', views.admin_dashboard, name='dashboard'),
 ]

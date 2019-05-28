@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smauth',
 ]
 
 MIDDLEWARE = [
@@ -110,13 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -124,7 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-API_URL = 'http://localhost:8010/api/v1/'
+# API_URL = 'http://localhost:8010/api/v1/noModelTest/'
+API_URL = 'http://localhost:8010/api/v1/chatbotByTextQuery/'
 API_APP_NAME = 'smbot'
 
 # 세션 타임아웃 설정

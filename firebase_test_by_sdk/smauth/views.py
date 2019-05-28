@@ -4,6 +4,9 @@ from config import config
 from django.conf import settings
 from django.contrib import auth
 from firebase_admin import auth as fb_admin_auth
+from datetime import datetime
+from pprint import pprint as prt
+from .models import Users
 import requests
 
 # Create your views here.
@@ -118,8 +121,31 @@ def delete_claim(request):
             fb_admin_auth.set_custom_user_claims(uid, claim)
             message = 'API 서비스 이용 권한을 제거했습니다. 다시 로그인 해주세요.'
             auth.logout(request)
-            return render(request, 'index.html', {'message': message})
+            return render(request, 'index.html', {'mesage': message})
     except:
         pass
     message = '존재하지않는 권한입니다.'
     return render(request, 'index.html', {'message': message})
+
+
+def admin_dashboard(request):
+    for user in fb_admin_auth.list_users().iterate_all():
+        user_db = Users(
+            uid=user.uid,
+            email=user.email,
+            email_verified=user.email_verified,
+            password_hash=user.password_hash,
+            password_salt=user.password_salt,
+            phone_number=user.phone_number,
+            photo_url=user.photo_url,
+            provider_id=user.provider_id,
+            display_name=user.display_name,
+            disabled=user.disabled,
+            last_sign_in_timestamp=datetime.fromtimestamp(user.user_metadata.last_sign_in_timestamp/1000),
+            tokens_valid_after_timestamp=datetime.fromtimestamp(user.tokens_valid_after_timestamp/1000),
+            creation_timestamp=datetime.fromtimestamp(user.user_metadata.creation_timestamp/1000)
+        )
+        user_db.save()
+    key = Users.objects.all()
+    context = {'users': key}
+    return render(request, 'dashboard.html', context)
