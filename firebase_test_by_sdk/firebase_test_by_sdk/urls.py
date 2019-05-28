@@ -28,4 +28,5 @@ urlpatterns = [
     path('create_claim/', views.create_claim, name='create_claim'),
     path('delete_claim/', views.delete_claim, name='delete_claim'),
     path('dashboard/', views.admin_dashboard, name='dashboard'),
+    path('synchronization/', views.auth_db_synchronization, name='synchronization')
 ]

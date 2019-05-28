@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import auth
 from firebase_admin import auth as fb_admin_auth
 from datetime import datetime
-from pprint import pprint as prt
 from .models import Users
 import requests
 
@@ -129,7 +128,24 @@ def delete_claim(request):
 
 
 def admin_dashboard(request):
+    key = Users.objects.all()
+    context = {'users': key}
+    return render(request, 'dashboard.html', context)
+
+
+def auth_db_synchronization(request):
     for user in fb_admin_auth.list_users().iterate_all():
+        str_claims = ''
+
+        # 문자열로 부여된 권한을 표기
+        claims = user.custom_claims
+        if claims is not None:
+            for claim, claim_exist in claims.items():
+                if claim_exist:
+                    str_claims += claim + ', '
+            if len(str_claims) != 0:
+                str_claims = str_claims[:-2]
+
         user_db = Users(
             uid=user.uid,
             email=user.email,
@@ -141,6 +157,7 @@ def admin_dashboard(request):
             provider_id=user.provider_id,
             display_name=user.display_name,
             disabled=user.disabled,
+            claims=str_claims,
             last_sign_in_timestamp=datetime.fromtimestamp(user.user_metadata.last_sign_in_timestamp/1000),
             tokens_valid_after_timestamp=datetime.fromtimestamp(user.tokens_valid_after_timestamp/1000),
             creation_timestamp=datetime.fromtimestamp(user.user_metadata.creation_timestamp/1000)

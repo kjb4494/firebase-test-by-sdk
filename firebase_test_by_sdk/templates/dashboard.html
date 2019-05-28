@@ -11,6 +11,7 @@
             <td><b>프로필 URL</b></td>
             <td><b>공급자 ID</b></td>
             <td><b>비활성화</b></td>
+            <td><b>권한</b></td>
             <td><b>마지막 로그인</b></td>
             <td><b>마지막 토큰발급일</b></td>
             <td><b>계정생성일</b></td>
@@ -26,6 +27,7 @@
             <td>{{user.photo_url}}</td>
             <td>{{user.provider_id}}</td>
             <td>{{user.disabled}}</td>
+            <td>{{user.claims}}</td>
             <td>{{user.last_sign_in_timestamp}}</td>
             <td>{{user.tokens_valid_after_timestamp}}</td>
             <td>{{user.creation_timestamp}}</td>
@@ -34,6 +36,7 @@
         </tbody>
     </table>
     <br>
+    <button type="button" onclick="location.href='{% url 'synchronization' %}'">동기화</button>
     <button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
 {% endif %}
 {% endblock content %}

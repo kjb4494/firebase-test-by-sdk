@@ -12,6 +12,7 @@ class Users(models.Model):
     photo_url = models.CharField(max_length=100, null=True)
     provider_id = models.CharField(max_length=100, null=True)
     display_name = models.CharField(max_length=100, null=True)
+    claims = models.CharField(max_length=255, null=True)
     disabled = models.BooleanField(null=True)
     last_sign_in_timestamp = models.DateTimeField(null=True)
     tokens_valid_after_timestamp = models.DateTimeField(null=True)
