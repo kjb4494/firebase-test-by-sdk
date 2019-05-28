@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from smauth.lib import pyrebase_auth
+from smauth.lib import pyrebase_auth, user_claim_update
 from config import config
 from django.conf import settings
 from django.contrib import auth
@@ -90,12 +90,7 @@ def create_claim(request):
     except:
         pass
 
-    uid = user.uid
-    claim = {
-        'smbot': True
-    }
-
-    fb_admin_auth.set_custom_user_claims(uid, claim)
+    user_claim_update.claim_update(user, app_name, True)
     message = 'API 서비스 이용 권한을 생성했습니다. 다시 로그인 해주세요.'
     auth.logout(request)
     return render(request, 'index.html', {'message': message})
@@ -113,14 +108,10 @@ def delete_claim(request):
     try:
         claims_of_user = user.custom_claims
         if claims_of_user.get(app_name):
-            uid = user.uid
-            claim = {
-                'smbot': False
-            }
-            fb_admin_auth.set_custom_user_claims(uid, claim)
+            user_claim_update.claim_update(user, app_name, False)
             message = 'API 서비스 이용 권한을 제거했습니다. 다시 로그인 해주세요.'
             auth.logout(request)
-            return render(request, 'index.html', {'mesage': message})
+            return render(request, 'index.html', {'message': message})
     except:
         pass
     message = '존재하지않는 권한입니다.'
