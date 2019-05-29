@@ -2,11 +2,16 @@
 {% block content %}
     {% if request.session.uid %}
         <h2>로그인 했습니다!</h2>
-        <button type="button" onclick="location.href='{% url 'api_test' %}'">API 테스트하기</button>
         <button type="button" onclick="location.href='{% url 'create_claim' %}'">API 권한 생성하기</button>
         <button type="button" onclick="location.href='{% url 'delete_claim' %}'">API 권한 제거하기</button>
         <button type="button" onclick="location.href='{% url 'dashboard' %}'">대쉬보드</button>
         <button type="button" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+        <p>
+        <form action="/api_test/" method="get">
+            Input :
+            <input type="text" name="query_text">
+            <input type="submit" value="API 테스트하기">
+        </form>
     {% else %}
         <h2>로그인 해주세요 :)</h2>
         <form action="/sign_in/" method="post">

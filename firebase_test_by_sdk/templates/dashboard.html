@@ -15,6 +15,7 @@
             <td><b>마지막 로그인</b></td>
             <td><b>마지막 토큰발급일</b></td>
             <td><b>계정생성일</b></td>
+            <td><b>관리자의 절대 권력!</b></td>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,8 @@
             <td>{{user.last_sign_in_timestamp}}</td>
             <td>{{user.tokens_valid_after_timestamp}}</td>
             <td>{{user.creation_timestamp}}</td>
+            <td><button type="button" onclick="location.href='{% url 'user_update' %}?uid={{user.uid}}'">수정하기</button>
+            <button type="button" onclick="location.href='{% url 'user_delete' %}?uid={{user.uid}}'">삭제하기</button></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -38,5 +41,9 @@
     <br>
     <button type="button" onclick="location.href='{% url 'synchronization' %}'">동기화</button>
     <button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
+{% endif %}
+{% if message %}
+    <p><hr>
+    <p>{{message}}</p>
 {% endif %}
 {% endblock content %}

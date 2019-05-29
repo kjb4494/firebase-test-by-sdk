@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from smauth.lib import user_claim_update
+from smauth.lib import user_claim_update, fb_user_handler
 from smauth.lib.decorations import requires_login, requires_admin
 from django.conf import settings
 from django.contrib import auth
 from firebase_admin import auth as fb_admin_auth
-from datetime import datetime
 from .models import Users
 import requests
 
@@ -54,13 +53,19 @@ def sign_in(request):
 
 
 def api_test(request):
+    query_text = request.GET.get('query_text')
+    if not query_text:
+        message = 'Input Data가 없습니다! :('
+        return render(request, 'index.html', {'message': message})
+
     id_token = request.session.get('uid')
     if id_token is None:
         id_token = ''
 
     try:
         res = requests.get(
-            url=settings.API_URL,
+            # url=settings.API_URL + 'smbotText/?query_text=' + query_text,
+            url=settings.API_URL + 'smbotText/?query_text=' + query_text,
             headers={
                 'authorization': 'JWT ' + id_token
             }
@@ -120,35 +125,65 @@ def admin_dashboard(request):
 
 @requires_admin
 def auth_db_synchronization(request):
-    for user in fb_admin_auth.list_users().iterate_all():
-        str_claims = ''
-
-        # 문자열로 부여된 권한을 표기
-        claims = user.custom_claims
-        if claims is not None:
-            for claim, claim_exist in claims.items():
-                if claim_exist:
-                    str_claims += claim + ', '
-            if len(str_claims) != 0:
-                str_claims = str_claims[:-2]
-
-        user_db = Users(
-            uid=user.uid,
-            email=user.email,
-            email_verified=user.email_verified,
-            password_hash=user.password_hash,
-            password_salt=user.password_salt,
-            phone_number=user.phone_number,
-            photo_url=user.photo_url,
-            provider_id=user.provider_id,
-            display_name=user.display_name,
-            disabled=user.disabled,
-            claims=str_claims,
-            last_sign_in_timestamp=datetime.fromtimestamp(user.user_metadata.last_sign_in_timestamp/1000),
-            tokens_valid_after_timestamp=datetime.fromtimestamp(user.tokens_valid_after_timestamp/1000),
-            creation_timestamp=datetime.fromtimestamp(user.user_metadata.creation_timestamp/1000)
-        )
-        user_db.save()
+    fb_user_handler.fb_and_mydb_all_sync()
     key = Users.objects.all()
-    context = {'users': key}
+    message = '동기화가 완료되었습니다.'
+    context = {
+        'users': key,
+        'message': message
+    }
+    return render(request, 'dashboard.html', context)
+
+
+@requires_admin
+def user_update(request):
+    uid = request.POST.get('uid')
+    email = request.POST.get('email')
+    password = request.POST.get('pass')
+    display_name = request.POST.get('name')
+    try:
+        fb_user_handler.fb_user_update(
+            uid=uid,
+            email=email,
+            password=password,
+            display_name=display_name
+        )
+        message = '해당 사용자 정보를 수정했습니다.'
+    except Exception as e:
+        message = '사용자 정보 변경 중 오류 발생: ' + str(e)
+    key = Users.objects.all()
+    context = {
+        'users': key,
+        'message': message
+    }
+    return render(request, 'dashboard.html', context)
+
+
+@requires_admin
+def user_update_post(request):
+    uid = request.GET.get('uid')
+    if uid is None:
+        key = Users.objects.all()
+        message = '잘못된 접근입니다.'
+        context = {
+            'users': key,
+            'message': message
+        }
+        return render(request, 'dashboard.html', context)
+    context = {'uid': uid}
+    return render(request, 'user_update.html', context)
+
+
+@requires_admin
+def user_delete(request):
+    try:
+        fb_user_handler.fb_user_delete(request.GET.get('uid'))
+        message = '해당 사용자를 삭제했습니다.'
+    except Exception as e:
+        message = '사용자 삭제 중 오류 발생: ' + str(e)
+    key = Users.objects.all()
+    context = {
+        'users': key,
+        'message': message
+    }
     return render(request, 'dashboard.html', context)

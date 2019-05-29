@@ -28,5 +28,8 @@ urlpatterns = [
     path('create_claim/', views.create_claim, name='create_claim'),
     path('delete_claim/', views.delete_claim, name='delete_claim'),
     path('dashboard/', views.admin_dashboard, name='dashboard'),
-    path('synchronization/', views.auth_db_synchronization, name='synchronization')
+    path('synchronization/', views.auth_db_synchronization, name='synchronization'),
+    path('user_update/', views.user_update_post, name='user_update'),
+    path('user_update_submit/', views.user_update, name='user_update_submit'),
+    path('user_delete/', views.user_delete, name='user_delete'),
 ]
