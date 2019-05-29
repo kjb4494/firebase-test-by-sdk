@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from smauth.lib import pyrebase_auth, user_claim_update
-from config import config
+from smauth.lib import user_claim_update
+from smauth.lib.decorations import requires_login, requires_admin
 from django.conf import settings
 from django.contrib import auth
 from firebase_admin import auth as fb_admin_auth
@@ -9,8 +9,7 @@ from .models import Users
 import requests
 
 # Create your views here.
-firebase = pyrebase_auth.initialize_app(config)
-fb_auth = firebase.auth()
+fb_auth = settings.FIREBASE_CLIENT_AUTH
 
 
 def index(request):
@@ -73,12 +72,9 @@ def api_test(request):
     return render(request, 'index.html', {'message': message, 'token_info': id_token})
 
 
+@requires_login
 def create_claim(request):
     id_token = request.session.get('uid')
-    if id_token is None:
-        message = '해당 서비스는 로그인이 필요합니다!'
-        return render(request, 'index.html', {'message': message})
-
     user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
     app_name = settings.API_APP_NAME
 
@@ -96,12 +92,9 @@ def create_claim(request):
     return render(request, 'index.html', {'message': message})
 
 
+@requires_login
 def delete_claim(request):
     id_token = request.session.get('uid')
-    if id_token is None:
-        message = '해당 서비스는 로그인이 필요합니다!'
-        return render(request, 'index.html', {'message': message})
-
     user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
     app_name = settings.API_APP_NAME
 
@@ -118,12 +111,14 @@ def delete_claim(request):
     return render(request, 'index.html', {'message': message})
 
 
+@requires_admin
 def admin_dashboard(request):
     key = Users.objects.all()
     context = {'users': key}
     return render(request, 'dashboard.html', context)
 
 
+@requires_admin
 def auth_db_synchronization(request):
     for user in fb_admin_auth.list_users().iterate_all():
         str_claims = ''

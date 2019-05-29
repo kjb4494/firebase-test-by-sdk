@@ -13,9 +13,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import firebase_admin
 from firebase_admin import credentials
+from smauth.lib.pyrebase_auth import initialize_app
+from config import config as fb_config
 
 cred = credentials.Certificate('firebase-adminsdk.json')
 default_app = firebase_admin.initialize_app(cred)
+firebase = initialize_app(fb_config)
+FIREBASE_CLIENT_AUTH = firebase.auth()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -126,7 +130,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 # API_URL = 'http://localhost:8010/api/v1/noModelTest/'
-API_URL = 'http://localhost:8010/api/v1/chatbotByTextQuery/'
+API_URL = 'http://localhost:8010/api/v1/smbotText/?query_text=안녕'
 API_APP_NAME = 'smbot'
 
 # 세션 타임아웃 설정
