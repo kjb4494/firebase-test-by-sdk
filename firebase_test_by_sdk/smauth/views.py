@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from smauth.lib import user_claim_update, fb_user_handler
+from smauth.lib import fb_user_handler
 from smauth.lib.decorations import requires_login, requires_admin
 from django.conf import settings
 from django.contrib import auth
-from firebase_admin import auth as fb_admin_auth
 from .models import Users
 import requests
 
@@ -19,8 +18,10 @@ def sign_up(request):
     email = request.POST.get('email')
     password = request.POST.get('pass')
     try:
-        user = fb_auth.create_user_with_email_and_password(email, password)
-        print('sign up user: {}'.format(user))
+        fb_user_handler.create_fb_user_with_email_and_password(
+            email=email,
+            password=password
+        )
     except Exception as e:
         print('Error: {}'.format(e))
         message = "계정 생성에 실패했습니다. 다시 시도해주세요. ;("
@@ -64,7 +65,6 @@ def api_test(request):
 
     try:
         res = requests.get(
-            # url=settings.API_URL + 'smbotText/?query_text=' + query_text,
             url=settings.API_URL + 'smbotText/?query_text=' + query_text,
             headers={
                 'authorization': 'JWT ' + id_token
@@ -80,39 +80,26 @@ def api_test(request):
 @requires_login
 def create_claim(request):
     id_token = request.session.get('uid')
-    user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
-    app_name = settings.API_APP_NAME
-
-    try:
-        claims_of_user = user.custom_claims
-        if claims_of_user.get(app_name):
-            message = '이미 부여된 권한입니다.'
-            return render(request, 'index.html', {'message': message})
-    except:
-        pass
-
-    user_claim_update.claim_update(user, app_name, True)
-    message = 'API 서비스 이용 권한을 생성했습니다. 다시 로그인 해주세요.'
-    auth.logout(request)
+    uid = fb_auth.get_account_info(id_token).get('users')[0].get('localId')
+    user = fb_user_handler.get_fb_user_from_uid(uid)
+    if fb_user_handler.fb_user_claim_update(user, settings.API_APP_NAME, True):
+        message = 'API 서비스 이용 권한을 생성했습니다. 다시 로그인 해주세요.'
+        auth.logout(request)
+    else:
+        message = '이미 부여된 권한입니다.'
     return render(request, 'index.html', {'message': message})
 
 
 @requires_login
 def delete_claim(request):
     id_token = request.session.get('uid')
-    user = fb_admin_auth.get_user(fb_auth.get_account_info(id_token).get('users')[0].get('localId'))
-    app_name = settings.API_APP_NAME
-
-    try:
-        claims_of_user = user.custom_claims
-        if claims_of_user.get(app_name):
-            user_claim_update.claim_update(user, app_name, False)
-            message = 'API 서비스 이용 권한을 제거했습니다. 다시 로그인 해주세요.'
-            auth.logout(request)
-            return render(request, 'index.html', {'message': message})
-    except:
-        pass
-    message = '존재하지않는 권한입니다.'
+    uid = fb_auth.get_account_info(id_token).get('users')[0].get('localId')
+    user = fb_user_handler.get_fb_user_from_uid(uid)
+    if fb_user_handler.fb_user_claim_update(user, settings.API_APP_NAME, False):
+        message = 'API 서비스 이용 권한을 제거했습니다. 다시 로그인 해주세요.'
+        auth.logout(request)
+    else:
+        message = '존재하지않는 권한입니다.'
     return render(request, 'index.html', {'message': message})
 
 
