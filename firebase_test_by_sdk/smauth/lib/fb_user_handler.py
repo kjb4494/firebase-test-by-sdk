@@ -1,6 +1,11 @@
 from firebase_admin import auth
 from smauth.models import Users
-from datetime import datetime
+from smauth.lib import pyrebase
+from datetime import datetime, timedelta
+from config import config as fb_config
+
+firebase = pyrebase.initialize_app(fb_config)
+fb_db = firebase.database()
 
 
 def _set_fb_user_default_claims(user):
@@ -21,11 +26,15 @@ def _get_to_string_fb_user_claims(user):
     return str_claims
 
 
-def _get_to_datetime_fb_timestamp(fb_timestamp):
+def _get_datetime_from_fb_timestamp(fb_timestamp):
     fb_timestamp_datetime = fb_timestamp
     if fb_timestamp is not None:
         fb_timestamp_datetime = datetime.fromtimestamp(fb_timestamp / 1000)
     return fb_timestamp_datetime
+
+
+def _get_fb_timestamp_from_datetime(date_time):
+    return int(date_time.timestamp() * 1000)
 
 
 def get_fb_user_from_uid(uid):
@@ -49,9 +58,9 @@ def fb_and_mydb_user_sync(user):
         display_name=user.display_name,
         disabled=user.disabled,
         claims=claims_string,
-        last_sign_in_timestamp=_get_to_datetime_fb_timestamp(user.user_metadata.last_sign_in_timestamp),
-        tokens_valid_after_timestamp=_get_to_datetime_fb_timestamp(user.tokens_valid_after_timestamp),
-        creation_timestamp=_get_to_datetime_fb_timestamp(user.user_metadata.creation_timestamp)
+        last_sign_in_timestamp=_get_datetime_from_fb_timestamp(user.user_metadata.last_sign_in_timestamp),
+        tokens_valid_after_timestamp=_get_datetime_from_fb_timestamp(user.tokens_valid_after_timestamp),
+        creation_timestamp=_get_datetime_from_fb_timestamp(user.user_metadata.creation_timestamp)
     )
     user_db.save()
 
@@ -89,3 +98,24 @@ def fb_user_claim_update(user, key, value):
     claims[key] = value
     auth.set_custom_user_claims(uid, claims)
     return True
+
+
+def set_user_meta_data(uid, **kwargs):
+    now = _get_fb_timestamp_from_datetime(datetime.now())
+    data = {}
+    for key, value in kwargs.items():
+        data.update({
+            key: value
+        })
+    data.update({
+        'creation_timestamp': now
+    })
+    if kwargs.get('expiresIn') is not None:
+        data.update({
+            'expire': now + int(kwargs.get('expiresIn'))
+        })
+    fb_db.child('meta_data').child(uid).set(data)
+
+
+def get_user_meta_data(uid, key):
+    return fb_db.child('meta_data').child(uid).child(key).get().val()

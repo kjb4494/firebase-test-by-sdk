@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from smauth.lib import fb_user_handler
+from smauth.lib import fb_user_handler, pyrebase
+from config import config as fb_config
 from smauth.lib.decorations import requires_login, requires_admin
 from django.conf import settings
 from django.contrib import auth
@@ -7,7 +8,8 @@ from .models import Users
 import requests
 
 # Create your views here.
-fb_auth = settings.FIREBASE_CLIENT_AUTH
+firebase = pyrebase.initialize_app(fb_config)
+fb_auth = firebase.auth()
 
 
 def index(request):
@@ -48,8 +50,15 @@ def sign_in(request):
         print('Error: {}'.format(e))
         message = '아이디나 비밀번호가 일치하지않습니다.'
         return render(request, 'index.html', {'message': message})
-    session_id = user.get('idToken')
-    request.session['uid'] = str(session_id)
+    request.session['uid'] = str(user.get('idToken'))
+    fb_user_handler.set_user_meta_data(
+        uid=user.get('localId'),
+        kind=user.get('kind'),
+        idToken=user.get('idToken'),
+        refreshToken=user.get('refreshToken'),
+        expiresIn=user.get('expiresIn')
+    )
+    # print(fb_user_handler.get_user_meta_data(user.get('localId'), 'idToken'))
     return render(request, 'index.html')
 
 

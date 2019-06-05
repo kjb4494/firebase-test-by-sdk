@@ -1,9 +1,5 @@
 from django.shortcuts import render
-from django.conf import settings
-from firebase_admin.auth import get_user
-
-
-auth = settings.FIREBASE_CLIENT_AUTH
+from firebase_admin.auth import get_user, verify_id_token
 
 
 def requires_login(func):
@@ -23,7 +19,7 @@ def requires_admin(func):
         if id_token is None:
             message = '해당 서비스는 관리자 권한이 필요합니다!'
             return render(args[0], 'index.html', {'message': message})
-        user = get_user(auth.get_account_info(id_token).get('users')[0].get('localId'))
+        user = get_user(verify_id_token(id_token)['uid'])
         admin_claim = user.custom_claims.get('admin')
         if admin_claim is None:
             message = '해당 서비스는 관리자 권한이 필요합니다!'
