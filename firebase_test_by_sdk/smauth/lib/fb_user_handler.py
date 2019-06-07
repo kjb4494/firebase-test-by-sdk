@@ -1,5 +1,5 @@
 from firebase_admin import auth
-from smauth.models import Users
+from smauth.models import Users, Tokens
 from smauth.lib import pyrebase
 from datetime import datetime, timedelta
 from config import config as fb_config
@@ -112,10 +112,27 @@ def set_user_meta_data(uid, **kwargs):
     })
     if kwargs.get('expiresIn') is not None:
         data.update({
-            'expire': now + int(kwargs.get('expiresIn'))
+            'expire': now + int(kwargs.get('expiresIn')) * 1000
         })
     fb_db.child('meta_data').child(uid).set(data)
 
 
-def get_user_meta_data(uid, key):
-    return fb_db.child('meta_data').child(uid).child(key).get().val()
+def get_all_users_meta_data():
+    return fb_db.child('meta_data').get().val()
+
+
+def fb_and_mydb_token_sync_for_token_info_of_user(uid):
+    token = fb_db.child('meta_data').child(uid).get().val()
+    if token is None:
+        return False
+    token_db = Tokens(
+        uid=uid,
+        id_token=token.get('idToken'),
+        refresh_token=token.get('refreshToken'),
+        creation_timestamp=_get_datetime_from_fb_timestamp(token.get('creation_timestamp')),
+        expire=_get_datetime_from_fb_timestamp(token.get('expire')),
+        expire_in=token.get('expiresIn'),
+        kind=token.get('kind')
+    )
+    token_db.save()
+    return True

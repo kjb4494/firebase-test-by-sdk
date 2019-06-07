@@ -15,3 +15,13 @@ class Users(models.Model):
     last_sign_in_timestamp = models.DateTimeField(null=True)
     tokens_valid_after_timestamp = models.DateTimeField(null=True)
     creation_timestamp = models.DateTimeField(null=True)
+
+
+class Tokens(models.Model):
+    uid = models.CharField(max_length=30, primary_key=True)
+    id_token = models.CharField(max_length=255, null=True)
+    refresh_token = models.CharField(max_length=255, null=True)
+    creation_timestamp = models.DateTimeField(null=True)
+    expire = models.DateTimeField(null=True)
+    expire_in = models.IntegerField(null=True)
+    kind = models.CharField(max_length=50, null=True)

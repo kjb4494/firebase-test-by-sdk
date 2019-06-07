@@ -4,7 +4,7 @@ from config import config as fb_config
 from smauth.lib.decorations import requires_login, requires_admin
 from django.conf import settings
 from django.contrib import auth
-from .models import Users
+from .models import Users, Tokens
 import requests
 
 # Create your views here.
@@ -116,6 +116,19 @@ def delete_claim(request):
 def admin_dashboard(request):
     key = Users.objects.all()
     context = {'users': key}
+    return render(request, 'dashboard.html', context)
+
+
+@requires_admin
+def user_token_info(request):
+    key = Users.objects.all()
+    uid = request.GET.get('uid')
+    if fb_user_handler.fb_and_mydb_token_sync_for_token_info_of_user(uid):
+        token_info = Tokens.objects.get(uid=uid)
+        context = {'users': key, 'token_info': token_info}
+    else:
+        message = 'idToken이 존재하지않는 사용자입니다.'
+        context = {'users': key, 'message': message}
     return render(request, 'dashboard.html', context)
 
 

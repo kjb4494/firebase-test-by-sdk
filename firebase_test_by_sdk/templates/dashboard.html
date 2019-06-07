@@ -21,7 +21,7 @@
         <tbody>
         {% for user in users %}
         <tr>
-            <td>{{user.uid}}</td>
+            <td><a href="{% url 'user_token_info' %}?uid={{user.uid}}">{{user.uid}}</a></td>
             <td>{{user.display_name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.phone_number}}</td>
@@ -39,8 +39,19 @@
         </tbody>
     </table>
     <br>
-    <button type="button" onclick="location.href='{% url 'synchronization' %}'">동기화</button>
-    <button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
+{% endif %}
+<button type="button" onclick="location.href='{% url 'synchronization' %}'">동기화</button>
+<button type="button" onclick="location.href='{% url 'home' %}'">뒤로가기</button>
+{% if token_info %}
+    <hr>
+    <h3>Token Info of {{token_info.uid}}</h3>
+    id token: {{token_info.id_token}}<br>
+    refresh token: {{token_info.refresh_token}}<br>
+    creation_timestamp: {{token_info.creation_timestamp}}<br>
+    expire: {{token_info.expire}}<br>
+    expire_in: {{token_info.expire_in}}<br>
+    kind: {{token_info.kind}}<br>
+
 {% endif %}
 {% if message %}
     <p><hr>
