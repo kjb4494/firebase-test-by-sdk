@@ -33,7 +33,8 @@
             <td>{{user.tokens_valid_after_timestamp}}</td>
             <td>{{user.creation_timestamp}}</td>
             <td><button type="button" onclick="location.href='{% url 'user_update' %}?uid={{user.uid}}'">수정하기</button>
-            <button type="button" onclick="location.href='{% url 'user_delete' %}?uid={{user.uid}}'">삭제하기</button></td>
+            <button type="button" onclick="location.href='{% url 'user_delete' %}?uid={{user.uid}}'">삭제하기</button>
+            <button type="button" onclick="location.href='{% url 'user_revoke' %}?uid={{user.uid}}'">토큰취소</button></td>
         </tr>
         {% endfor %}
         </tbody>

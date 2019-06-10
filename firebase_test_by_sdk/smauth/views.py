@@ -196,3 +196,16 @@ def user_delete(request):
         'message': message
     }
     return render(request, 'dashboard.html', context)
+
+
+@requires_admin
+def user_revoke(request):
+    uid = request.GET.get('uid')
+    fb_user_handler.revoke_refresh_token(uid)
+    key = Users.objects.all()
+    message = uid + ' 사용자의 토큰이 취소되었습니다.'
+    context = {
+        'users': key,
+        'message': message
+    }
+    return render(request, 'dashboard.html', context)

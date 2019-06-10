@@ -136,3 +136,7 @@ def fb_and_mydb_token_sync_for_token_info_of_user(uid):
     )
     token_db.save()
     return True
+
+
+def revoke_refresh_token(uid):
+    auth.revoke_refresh_tokens(uid)
